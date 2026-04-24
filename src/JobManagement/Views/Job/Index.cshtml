@@ -1,0 +1,98 @@
+﻿@model IEnumerable<JobManagement.Models.Job>
+
+@{
+    ViewBag.Title = "Danh sách công việc";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 fw-bold text-primary">💼 Danh sách công việc</h2>
+
+    <!-- Filter -->
+    @using (Html.BeginForm("Index", "Job", FormMethod.Get))
+    {
+        <div class="card p-3 mb-4 shadow-sm">
+            <div class="row g-2">
+
+                <div class="col-md-3">
+                    @Html.DropDownList("categoryId", ViewBag.CategoryId as SelectList,
+                        "-- Tất cả ngành --",
+                        new { @class = "form-select" })
+                </div>
+
+                <div class="col-md-4">
+                    <input type="text" name="keyword"
+                           value="@ViewBag.Keyword"
+                           placeholder="🔍 Tìm kiếm công việc..."
+                           class="form-control" />
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Tìm</button>
+                </div>
+
+                <div class="col-md-3 text-end">
+                    @Html.ActionLink("➕ Đăng tin", "Create", null, new { @class = "btn btn-success" })
+                </div>
+
+            </div>
+        </div>
+    }
+
+    <!-- List jobs -->
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 border-0 job-card">
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold text-dark">
+                            @item.Title
+                        </h5>
+
+                        <p class="text-muted mb-1">
+                            🏢 @item.Company
+                        </p>
+
+                        <p class="mb-1">
+                            📂 <span class="badge bg-secondary">
+                                @(item.Category != null ? item.Category.CategoryName : "")
+                            </span>
+                        </p>
+
+                        <p class="mb-1 text-success fw-bold">
+                            💰 @String.Format("{0:N0} VNĐ", item.Salary)
+                        </p>
+
+                        <p class="mb-2 text-danger">
+                            ⏰ @(item.Deadline.HasValue
+                                ? item.Deadline.Value.ToString("dd/MM/yyyy")
+                                : "Không có")
+                        </p>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.Id },
+                                new { @class = "btn btn-outline-primary btn-sm w-100" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<style>
+    .job-card {
+        transition: all 0.2s ease;
+    }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+</style>

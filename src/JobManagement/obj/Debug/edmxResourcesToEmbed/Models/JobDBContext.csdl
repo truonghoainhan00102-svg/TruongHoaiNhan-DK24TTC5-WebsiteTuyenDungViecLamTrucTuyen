@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobManagementDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Jobs" Relationship="Self.FK__Jobs__CategoryId__4D94879B" FromRole="Categories" ToRole="Jobs" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Company" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Deadline" Type="DateTime" Precision="3" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__Jobs__CategoryId__4D94879B" FromRole="Jobs" ToRole="Categories" />
+    <NavigationProperty Name="Applications" Relationship="JobManagementDBModel.FK__Applicati__JobId__628FA481" FromRole="Job" ToRole="Application" />
+  </EntityType>
+  <Association Name="FK__Jobs__CategoryId__4D94879B">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JobManagementDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Jobs" EntityType="Self.Job" />
+    <AssociationSet Name="FK__Jobs__CategoryId__4D94879B" Association="Self.FK__Jobs__CategoryId__4D94879B">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="JobManagementDBModel.User" />
+    <EntitySet Name="Applications" EntityType="JobManagementDBModel.Application" />
+    <AssociationSet Name="FK__Applicati__JobId__628FA481" Association="JobManagementDBModel.FK__Applicati__JobId__628FA481">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="Application" EntitySet="Applications" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Applicati__UserI__6383C8BA" Association="JobManagementDBModel.FK__Applicati__UserI__6383C8BA">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Application" EntitySet="Applications" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Applications" Relationship="JobManagementDBModel.FK__Applicati__UserI__6383C8BA" FromRole="User" ToRole="Application" />
+  </EntityType>
+  <EntityType Name="Application">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="JobId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CoverLetter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CVPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ApplyDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Job" Relationship="JobManagementDBModel.FK__Applicati__JobId__628FA481" FromRole="Application" ToRole="Job" />
+    <NavigationProperty Name="User" Relationship="JobManagementDBModel.FK__Applicati__UserI__6383C8BA" FromRole="Application" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__Applicati__JobId__628FA481">
+    <End Type="JobManagementDBModel.Job" Role="Job" Multiplicity="1" />
+    <End Type="JobManagementDBModel.Application" Role="Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Application">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Applicati__UserI__6383C8BA">
+    <End Type="JobManagementDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="JobManagementDBModel.Application" Role="Application" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Application">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

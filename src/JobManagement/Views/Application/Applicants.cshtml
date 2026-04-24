@@ -1,0 +1,65 @@
+﻿@model IEnumerable<JobManagement.Models.ApplicantViewModel>
+
+@{
+    ViewBag.Title = "Danh sách ứng viên";
+}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold text-primary mb-4">📋 Danh sách ứng viên</h2>
+
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Họ tên</th>
+                <th>Email</th>
+                <th>Cover Letter</th>
+                <th>Ngày apply</th>
+                <th>CV</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+
+                    <td style="max-width:250px;">
+                        @(string.IsNullOrEmpty(item.CoverLetter) ? "Không có" : item.CoverLetter)
+                    </td>
+
+                    <td>
+                        @(item.ApplyDate.HasValue
+                            ? item.ApplyDate.Value.ToString("dd/MM/yyyy HH:mm")
+                            : "")
+                    </td>
+
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.CVPath))
+                        {
+                            <a href="@Url.Content(item.CVPath)"
+                               class="btn btn-sm btn-success"
+                               target="_blank">
+                                ⬇ Tải CV
+                            </a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Không có</span>
+                        }
+                    </td>
+
+                    <td>
+                        <span class="badge bg-warning text-dark">
+                            @item.Status
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

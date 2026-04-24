@@ -1,0 +1,16 @@
+﻿@model JobManagement.Models.Category
+
+<div class="container mt-4">
+    <h3>⚠️ Xóa ngành nghề</h3>
+
+    <p>Bạn có chắc muốn xóa: <strong>@Model.CategoryName</strong>?</p>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        @Html.ActionLink("Hủy", "Index", null, new { @class = "btn btn-secondary" })
+    }
+</div>

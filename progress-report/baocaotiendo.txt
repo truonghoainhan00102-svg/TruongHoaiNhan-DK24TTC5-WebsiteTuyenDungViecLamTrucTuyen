@@ -1,0 +1,22 @@
+Ngày 08/04/2026
+Nội dung công việc: Hoàn thiện hệ thống (bao gồm Giao diện, Chức năng và Cơ sở dữ liệu).
+Về cơ sở dữ liệu:
+Hoàn thiện sơ đồ quan hệ thực thể (Database Diagram) với các bảng chính như: Users, Jobs, Applications. Đảm bảo các bảng được liên kết hợp lý, phục vụ đầy đủ cho các chức năng của hệ thống.
+Về giao diện (UI/UX):
+Thiết kế giao diện thân thiện, dễ sử dụng cho người dùng.
+Sử dụng các công nghệ Front-end gồm: HTML5, CSS3, JavaScript và Bootstrap.
+Xây dựng các trang chính của hệ thống bao gồm: Trang chủ, Trang chi tiết công việc, Trang quản lý công việc, Trang đăng tin tuyển dụng, Trang quản lý danh mục.
+Về chức năng:
+Phân hệ khách vãng lai: Cho phép người dùng xem trang chủ, tìm kiếm việc làm, xem chi tiết công việc và đăng ký tài khoản.
+Phân hệ người tìm việc: Hỗ trợ đăng nhập/đăng xuất, nộp hồ sơ ứng tuyển và quản lý thông tin cá nhân.
+Phân hệ nhà tuyển dụng: Cho phép đăng nhập/đăng xuất, đăng tin tuyển dụng, quản lý tin đăng, quản lý ứng viên và cập nhật trạng thái ứng tuyển.
+Phân hệ quản trị viên: Thực hiện đăng nhập bảo mật, theo dõi thống kê tổng quan, quản lý người dùng và quản lý tin tuyển dụng.
+Ngày 21/04/2026
+Nội dung công việc: Tổng hợp và cập nhật hồ sơ đồ án.
+Cập nhật báo cáo Word:
+Hệ thống hóa lại toàn bộ phần lý thuyết liên quan đến kiến trúc MVC (Model - View - Controller), công nghệ Entity Framework và hệ quản trị cơ sở dữ liệu SQL Server.
+Viết chi tiết chương “Hiện thực hóa nghiên cứu”, trong đó mô tả rõ bài toán và xây dựng lược đồ Use Case thể hiện sự tương tác giữa các tác nhân với hệ thống.
+Thực hiện chụp ảnh màn hình các giao diện đã hoàn thiện như: Trang chủ, trang tìm kiếm việc làm, trang chi tiết công việc và chức năng ứng tuyển, sau đó đưa vào báo cáo để minh họa cho kết quả đạt được.
+Tiến hành chạy thử toàn bộ các phân hệ: khách vãng lai, người tìm việc, nhà tuyển dụng và quản trị viên để kiểm tra tính ổn định của hệ thống.
+Đánh giá các kết quả đã đạt được, đồng thời chỉ ra những hạn chế còn tồn tại.
+Đề xuất các hướng phát triển và cải tiến hệ thống trong tương lai.

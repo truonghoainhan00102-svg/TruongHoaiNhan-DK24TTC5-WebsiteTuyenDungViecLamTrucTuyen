@@ -1,0 +1,78 @@
+﻿@model JobManagement.Models.Job
+@{
+    ViewBag.Title = "Chi tiết công việc";
+}
+
+<div class="container mt-4">
+
+    <a href="/Job" class="btn btn-outline-secondary mb-3">⬅ Quay lại</a>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+            <div class="row">
+
+                <!-- LEFT -->
+                <div class="col-md-8">
+
+                    <h2 class="fw-bold text-primary">@Model.Title</h2>
+
+                    <p class="text-muted mb-2">
+                        🏢 <strong>@Model.Company</strong>
+                    </p>
+
+                    <hr />
+
+                    <p>
+                        📂 <strong>Ngành nghề:</strong>
+                        <span class="badge bg-secondary">
+                            @(Model.Category != null ? Model.Category.CategoryName : "")
+                        </span>
+                    </p>
+
+                    <p class="text-success fw-bold fs-5">
+                        💰 @String.Format("{0:N0} VNĐ", Model.Salary)
+                    </p>
+
+                    <p class="text-danger">
+                        ⏰ @(Model.Deadline.HasValue
+                            ? Model.Deadline.Value.ToString("dd/MM/yyyy")
+                            : "Không giới hạn")
+                    </p>
+
+                    <hr />
+
+                    <h5 class="fw-bold">📄 Mô tả công việc</h5>
+
+                    <div class="p-3 bg-light rounded">
+                        @Html.Raw(Model.Description?.Replace(Environment.NewLine, "<br/>"))
+                    </div>
+
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-md-4 text-center border-start">
+
+                    <div class="p-4">
+
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135692.png"
+                             style="width: 90px;" />
+
+                        <p class="text-muted mt-3">
+                            Đừng bỏ lỡ cơ hội này!
+                        </p>
+
+                        <a href="/Application/Apply/@Model.Id"
+                           class="btn btn-success btn-lg w-100 fw-bold">
+                            🚀 Ứng tuyển ngay
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

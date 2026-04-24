@@ -1,0 +1,84 @@
+﻿@model IEnumerable<JobManagement.Models.Job>
+@{
+    ViewBag.Title = "Trang Chủ";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-3">
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success text-center shadow-sm">
+            <strong>✔</strong> @TempData["Message"]
+        </div>
+    }
+
+    <!-- HERO -->
+    <div class="p-5 mb-4 bg-primary text-white rounded-3 text-center shadow-sm">
+        <h1 class="fw-bold">🚀 Hệ Thống Tìm Việc Làm</h1>
+        <p class="lead">Hàng ngàn cơ hội việc làm đang chờ bạn!</p>
+        <a href="/Job/Create" class="btn btn-light btn-lg mt-2">Đăng tin tuyển dụng</a>
+    </div>
+
+    <!-- TITLE -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-bold">🔥 Việc làm mới nhất</h3>
+        <a href="/Job" class="btn btn-outline-primary">Xem tất cả</a>
+    </div>
+
+    <!-- JOB LIST -->
+    <div class="row">
+        @foreach (var job in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm job-card">
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold text-dark">@job.Title</h5>
+
+                        <p class="text-muted mb-1">
+                            🏢 @job.Company
+                        </p>
+
+                        <p class="mb-1">
+                            📂 <span class="badge bg-secondary">
+                                @(job.Category != null ? job.Category.CategoryName : "")
+                            </span>
+                        </p>
+
+                        <p class="text-success fw-bold">
+                            💰 @String.Format("{0:N0} VNĐ", job.Salary)
+                        </p>
+
+                        <p class="text-danger small">
+                            ⏰ @(job.Deadline.HasValue
+                                ? job.Deadline.Value.ToString("dd/MM/yyyy")
+                                : "Không giới hạn")
+                        </p>
+
+                        <a href="/Job/Details/@job.Id"
+                           class="btn btn-outline-primary btn-sm mt-2 w-100">
+                            Xem chi tiết
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<style>
+    .job-card {
+        transition: all 0.25s ease;
+        border-radius: 12px;
+    }
+
+        .job-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+</style>

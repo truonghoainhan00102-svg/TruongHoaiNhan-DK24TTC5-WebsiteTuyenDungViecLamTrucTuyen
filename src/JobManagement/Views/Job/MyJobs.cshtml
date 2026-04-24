@@ -1,0 +1,68 @@
+﻿@model IEnumerable<JobManagement.Models.Job>
+
+@{
+    ViewBag.Title = "Tin tuyển dụng của tôi";
+}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold text-primary mb-4">📋 Tin đã đăng</h2>
+
+    <div class="mb-3 text-end">
+        @Html.ActionLink("➕ Đăng tin mới", "Create", null, new { @class = "btn btn-success" })
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100 border-0 job-card">
+
+                    <div class="card-body">
+                        <h5 class="fw-bold">@item.Title</h5>
+
+                        <p class="text-muted mb-1">
+                            🏢 @item.Company
+                        </p>
+
+                        <p>
+                            📂 <span class="badge bg-secondary">
+                                @(item.Category != null ? item.Category.CategoryName : "")
+                            </span>
+                        </p>
+
+                        <p class="text-success fw-bold">
+                            💰 @String.Format("{0:N0} VNĐ", item.Salary)
+                        </p>
+
+                        <p class="text-danger small">
+                            ⏰ @(item.Deadline.HasValue
+                                ? item.Deadline.Value.ToString("dd/MM/yyyy")
+                                : "Không có")
+                        </p>
+
+                     
+                        <div class="d-flex justify-content-between mt-3">
+                            @Html.ActionLink("Ứng viên", "Applicants", "Application",
+    new { jobId = item.Id },
+    new { @class = "btn btn-outline-info btn-sm" })
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, new { @class = "btn btn-outline-primary btn-sm" })
+                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-warning btn-sm" })
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger btn-sm" })
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<style>
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    }
+</style>
